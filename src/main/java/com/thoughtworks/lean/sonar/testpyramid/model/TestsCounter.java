@@ -20,6 +20,13 @@ public class TestsCounter {
         testCounterMap.get(testType).increment();
     }
 
+    public void incrementTestsFor(TestType testType, double n) {
+        if (testCounterMap.get(testType) == null) {
+            testCounterMap.put(testType, new TestCounter(testType));
+        }
+        testCounterMap.get(testType).increment(n);
+    }
+
     public double getNumberOfTests(TestType testType) {
         if (testCounterMap.get(testType) != null) {
             return testCounterMap.get(testType).getNumberOfTests();

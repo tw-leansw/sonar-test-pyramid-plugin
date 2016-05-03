@@ -17,6 +17,10 @@ public class TestCounter {
         this.numberOfTests++;
     }
 
+    public void increment(double n) {
+        this.numberOfTests += n;
+    }
+
     public TestType getTestType() {
         return testType;
     }
