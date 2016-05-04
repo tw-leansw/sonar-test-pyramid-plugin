@@ -24,13 +24,14 @@ import java.util.List;
 
 }
 )
-public class SonarTestPyramidPlugin extends SonarPlugin {
+public class SonarLeanTestPyramidPlugin extends SonarPlugin {
 
     public List getExtensions() {
         return ImmutableList.of(
                 SonarTestPyramidSensor.class,
                 SonarTestPyramidMetrics.class,
-                SonarTestPyramidWidget.class
+                SonarTestPyramidWidget.class,
+                SonarTestPyramidWidgetV2.class
         );
     }
 }
