@@ -1,7 +1,7 @@
 <%
-  unit_tests = Integer(measure('lean.testpyramid.unittests').value)
-  integration_tests = Integer(measure('lean.testpyramid.integrationtests').value)
-  functional_tests = Integer(measure('lean.testpyramid.functionaltests').value)
+  unit_tests = Integer(measure('lean_testpyramid_unittests').value)
+  integration_tests = Integer(measure('lean_testpyramid_integrationtests').value)
+  functional_tests = Integer(measure('lean_testpyramid_functionaltests').value)
   max = [unit_tests, integration_tests, functional_tests].max
   def calculate_width(value, max)
     ((80 * value)/max).to_i.to_s + "%"
@@ -9,8 +9,8 @@
   unit_tests_width = calculate_width(unit_tests, max)
   integration_tests_width = calculate_width(integration_tests, max)
   functional_tests_width = calculate_width(functional_tests, max)
-%>
 
+%>
 <div>
   <h3>Test Pyramid</h3>
   <h4>UI&Functional Tests</h4>

@@ -1,14 +1,61 @@
 <%
-  uuid=java.util.UUID.randomUUID
+  uuid="pre-" + java.util.UUID.randomUUID().toString
+  unit_tests = Integer(measure('lean_testpyramid_unittests').value)
+  integration_tests = Integer(measure('lean_testpyramid_integrationtests').value)
+  functional_tests = Integer(measure('lean_testpyramid_functionaltests').value)
 %>
 <div>
   <h3>Test Pyramid</h3>
-  <h4>UI&Functional Tests<%= uuid %></h4>
-  <div id="<%= uuid %>">
-
+  <h4>UI&Functional Tests</h4>
+  <div style="padding:10px;">
+      <div id="<%= uuid %>">
+      </div>
   </div>
   <script>
-    var uuid="<%= uuid >";
+    jQuery(
+    function(){
+        var input = [<%= functional_tests %>,<%= integration_tests %>,<%= unit_tests %>];
+        var uuid="<%= uuid %>";
+        var colors = ['#08306B',"#4292C6",'#6BAED6',"#C6DBEF"]
+        //var colors = ["green","yellow","blue","red","pink"];
+        var sumArray = (array)=>array.reduce((a,b)=>a+b,0)
+
+        var sum = sumArray(input)
+        var unify = input.map((item)=>{return item/sum})
+
+        var triangleHeight = input.map((item,idx)=>{
+          return 2*Math.sqrt(sumArray(unify.slice(0, idx+1)))
+        })
+
+
+        var container=jQuery("#" + uuid);
+        if(container.width()>500){
+          container.width(500)
+        }
+
+        container.height(container.width());
+
+        var svg=d3.select("#" + uuid).append("svg").attr("width",container.width())
+        .attr("height",container.height())
+        //
+        var x = d3.scale.linear().range([container.width()/2,container.width()]),
+            y = d3.scale.linear().range([0, container.height()/2]);
+
+        var polygonPoints = function (height){
+
+            return x(0) + "," + y(0) + " "
+            + x(height/2) + "," + y(height) + " "
+            + x((0-height)/2) + "," + y(height);
+        }
+        triangleHeight.reverse().map(
+          (item,idx)=>{
+            svg.append("polygon")
+            .style("fill",colors[idx])
+            .attr("points",polygonPoints(item))
+          }
+        )
+    })
+
 
   </script>
 </div>
