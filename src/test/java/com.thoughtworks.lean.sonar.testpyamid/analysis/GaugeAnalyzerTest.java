@@ -32,6 +32,23 @@ public class GaugeAnalyzerTest {
         assertEquals(1.0,testsCounter.getNumberOfTests(TestType.FUNCTIONAL_TEST));
 
 
+    }
+
+    @Test
+    public void should_return_1_unit_test() throws IOException {
+
+        // given
+        // given
+        String jsString = IOUtils.toString(getClass().getResourceAsStream("/gauge_report_2.js"));
+        JXPathMap ctx = ScriptUtil.eval(jsString);
+        TestsCounter testsCounter=new TestsCounter();
+        GaugeAnalyzer gaugeAnalyzer=new GaugeAnalyzer(Sets.newHashSet("api_test"),Sets.newHashSet("ui_test"));
+
+        // when
+
+        gaugeAnalyzer.analyse(ctx,testsCounter);
+        // then
+        assertEquals(1.0,testsCounter.getNumberOfTests(TestType.UNIT_TEST));
 
 
     }

@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.thoughtworks.lean</groupId>
-  <!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example "sonar-php-plugin" -->
+  <!-- it's recommended to follow the pattern "lean-{key}-plugin", for example "lean-php-plugin" -->
   <artifactId>sonar-test-pyramid-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
  
-  <!-- this is important for sonar-packaging-maven-plugin -->
+  <!-- this is important for lean-packaging-maven-plugin -->
   <packaging>sonar-plugin</packaging>
   <name>Test Pyramid</name>
   <description>Adds a Test Pyramid (unit/integration/functional) view to sonar</description>

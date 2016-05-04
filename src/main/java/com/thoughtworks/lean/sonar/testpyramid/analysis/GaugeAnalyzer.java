@@ -36,9 +36,9 @@ public class GaugeAnalyzer {
 
     public GaugeAnalyzer(Settings settings, FileSystem fileSystem) {
         this.fileSystem = fileSystem;
-        this.reportPath = settings.getString("sonar.leansw.testpyramid.gauge.report.path");
-        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("sonar.leansw.testpyramid.gauge.integration.test.tags"));
-        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("sonar.leansw.testpyramid.gauge.functional.test.tags"));
+        this.reportPath = settings.getString("lean.leansw.testpyramid.gauge.report.path");
+        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("lean.leansw.testpyramid.gauge.integration.test.tags"));
+        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("lean.leansw.testpyramid.gauge.functional.test.tags"));
     }
 
     public void analyse(TestsCounter testsCounter) {
@@ -50,12 +50,14 @@ public class GaugeAnalyzer {
         }
     }
 
+
+
     public void analyse(JXPathMap jxPathMap, TestsCounter testCounter) {
         List<Map> specResults = jxPathMap.get("/gaugeExecutionResult/suiteResult/specResults");
         List<JXPathMap> wrapedSpecResults = with(specResults).convert(toJxPathFunction);
         for (JXPathMap spec : wrapedSpecResults) {
-            Set<String> tags = Sets.newHashSet((List<String>) spec.get("protoSpec/tags"));
-            double scenarioCount = spec.get("scenarioCount");
+            Set<String> tags = spec.getStringSet("protoSpec/tags");
+            double scenarioCount = Double.parseDouble(spec.get("scenarioCount").toString());
             TestType testType = TestType.UNIT_TEST;
             if (Sets.intersection(tags, functionalTestTags).size() > 0) {
                 testType = TestType.FUNCTIONAL_TEST;
@@ -63,7 +65,7 @@ public class GaugeAnalyzer {
                 testType = TestType.INTEGRATION_TEST;
             }
             String specName = spec.get("protoSpec/specHeading");
-            testCounter.incrementTestsFor(testType, (int) scenarioCount);
+            testCounter.incrementTestsFor(testType, scenarioCount);
             logger.debug(String.format("find test spec:%s scenarioCount:%.0f type:%s", specName, scenarioCount, testType.name()));
         }
     }

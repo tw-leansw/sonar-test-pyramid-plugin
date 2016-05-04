@@ -10,21 +10,21 @@ import java.util.List;
 public class SonarTestPyramidMetrics implements Metrics {
 
     public final static Metric UNIT_TESTS_METRIC = new Metric.Builder(
-            "sonar.com.thoughtworks.lean.sonar.testpyramid.unittests",
+            "lean.testpyramid.unittests",
             "Number Of Unit Tests",
             Metric.ValueType.INT)
             .setDomain(CoreMetrics.DOMAIN_TESTS)
             .setQualitative(true)
             .create();
     public final static Metric INTEGRATION_TESTS_METRIC = new Metric.Builder(
-            "sonar.com.thoughtworks.lean.sonar.testpyramid.integrationtests",
+            "lean.testpyramid.integrationtests",
             "Number Of Integration/API Tests",
             Metric.ValueType.INT)
             .setDomain(CoreMetrics.DOMAIN_TESTS)
             .setQualitative(true)
             .create();
     public static final Metric FUNCTIONAL_TESTS_METRIC = new Metric.Builder(
-            "sonar.com.thoughtworks.lean.sonar.testhyramid.functionaltests",
+            "lean.testpyramid.functionaltests",
             "Number Of Functional/UI Tests",
             Metric.ValueType.INT)
             .setDomain(CoreMetrics.DOMAIN_TESTS)
