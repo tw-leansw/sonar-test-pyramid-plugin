@@ -8,9 +8,6 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
-import java.io.File;
-import java.util.List;
-
 
 public class SonarTestPyramidSensor implements Sensor {
 
@@ -18,15 +15,13 @@ public class SonarTestPyramidSensor implements Sensor {
     private FileSystem fileSystem;
 
 
-    public SonarTestPyramidSensor(FileSystem fileSystem, Project project, Settings settings) {
+    public SonarTestPyramidSensor(FileSystem fileSystem, Settings settings) {
         this.fileSystem = fileSystem;
         this.settings = settings;
     }
 
     public void analyse(Project project, SensorContext sensorContext) {
-        List<File> testDirs = project.getFileSystem().getTestDirs();
         TestPyramidAnalysis analysis = createAnalyzer().analyse();
-
         sensorContext.saveMeasure(analysis.numberOfUnitTests());
         sensorContext.saveMeasure(analysis.numberOfIntegrationTests());
         sensorContext.saveMeasure(analysis.numberOfFunctionalTests());

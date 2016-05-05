@@ -1,0 +1,1 @@
+mvn package org.codehaus.sonar:sonar-dev-maven-plugin::upload -DsonarHome=/opt/sonarqube -DsonarUrl=http://121.42.193.129:9000
