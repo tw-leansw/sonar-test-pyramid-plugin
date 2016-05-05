@@ -36,13 +36,14 @@ public class GaugeAnalyzer {
 
     public GaugeAnalyzer(Settings settings, FileSystem fileSystem) {
         this.fileSystem = fileSystem;
-        this.reportPath = settings.getString("lean.leansw.testpyramid.gauge.report.path");
-        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("lean.leansw.testpyramid.gauge.integration.test.tags"));
-        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("lean.leansw.testpyramid.gauge.functional.test.tags"));
+        this.reportPath = settings.getString("lean.testpyramid.gauge.report.path");
+        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.gauge.integration.test.tags"));
+        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.gauge.functional.test.tags"));
     }
 
     public void analyse(TestsCounter testsCounter) {
         try {
+            logger.debug("start gauge test pyramid analyse");
             String reportString = IOUtils.toString(new FileInputStream(fileSystem.resolvePath(reportPath + "html-report/js/result.js")));
             analyse(ScriptUtil.eval(reportString), testsCounter);
         } catch (IOException e) {
@@ -54,7 +55,7 @@ public class GaugeAnalyzer {
 
     public void analyse(JXPathMap jxPathMap, TestsCounter testCounter) {
         List<Map> specResults = jxPathMap.get("/gaugeExecutionResult/suiteResult/specResults");
-        List<JXPathMap> wrapedSpecResults = with(specResults).convert(toJxPathFunction);
+        List<JXPathMap> wrapedSpecResults = with(specResults).convert(JXPathMap.toJxPathFunction);
         for (JXPathMap spec : wrapedSpecResults) {
             Set<String> tags = spec.getStringSet("protoSpec/tags");
             double scenarioCount = Double.parseDouble(spec.get("scenarioCount").toString());
@@ -66,15 +67,8 @@ public class GaugeAnalyzer {
             }
             String specName = spec.get("protoSpec/specHeading");
             testCounter.incrementTestsFor(testType, scenarioCount);
-            logger.debug(String.format("find test spec:%s scenarioCount:%.0f type:%s", specName, scenarioCount, testType.name()));
+            logger.debug(String.format("find gauge test spec:%s scenarioCount:%.0f type:%s", specName, scenarioCount, testType.name()));
         }
     }
 
-    private Converter<Map,JXPathMap> toJxPathFunction = new Converter<Map, JXPathMap>() {
-        @Override
-        public JXPathMap convert(Map map) {
-            return new JXPathMap(map);
-        }
-
-    };
 }

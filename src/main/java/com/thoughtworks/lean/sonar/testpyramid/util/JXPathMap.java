@@ -1,15 +1,14 @@
 package com.thoughtworks.lean.sonar.testpyramid.util;
 
+import ch.lambdaj.function.convert.Converter;
 import org.apache.commons.jxpath.JXPathContext;
 
 import java.util.*;
 
 public class JXPathMap {
-    Map map;
     JXPathContext jxPathContext;
 
-    public JXPathMap(Map map) {
-        this.map = map;
+    public JXPathMap(Object map) {
         this.jxPathContext = JXPathContext.newContext(map);
     }
 
@@ -21,4 +20,17 @@ public class JXPathMap {
         List<String> strings = get(key);
         return strings == null ? new HashSet<String>() : new HashSet<>(strings);
     }
+
+    public String getString(String key){
+        String string = get(key);
+        return string;
+    }
+
+    public static Converter<Map,JXPathMap> toJxPathFunction = new Converter<Map, JXPathMap>() {
+        @Override
+        public JXPathMap convert(Map map) {
+            return new JXPathMap(map);
+        }
+
+    };
 }
