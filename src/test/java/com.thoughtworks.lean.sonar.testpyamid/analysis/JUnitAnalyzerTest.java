@@ -14,8 +14,9 @@ import static junit.framework.Assert.assertEquals;
 public class JUnitAnalyzerTest {
     @Test
     public void should_analyze_junit_report_success(){
+
         File reportDir=FileUtils.getFile(getClass().getResource("/surefire-reports").getFile());
-        JUnitAnalyzer jUnitAnalyzer=new JUnitAnalyzer("IT*,API_*","FT*,UI_*","");
+        JUnitAnalyzer jUnitAnalyzer=new JUnitAnalyzer("^IT.*$,^API_.*$","^FT.*$,^UI_*$","");
         TestsCounter testsCounter=new TestsCounter();
         jUnitAnalyzer.analyse(testsCounter,reportDir);
 

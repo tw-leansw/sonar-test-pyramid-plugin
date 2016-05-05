@@ -4,7 +4,7 @@
   <groupId>com.thoughtworks.lean</groupId>
   <!-- it's recommended to follow the pattern "lean-{key}-plugin", for example "lean-php-plugin" -->
   <artifactId>sonar-lean-test-pyramid-plugin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
  
   <!-- this is important for lean-packaging-maven-plugin -->
   <packaging>sonar-plugin</packaging>

@@ -4,8 +4,6 @@ import ch.lambdaj.function.convert.Converter;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JUnitUtil;
-import org.apache.commons.digester.RegexMatcher;
-import org.apache.commons.digester.SimpleRegexMatcher;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static ch.lambdaj.collection.LambdaCollections.with;
 
@@ -29,11 +29,11 @@ public class JUnitAnalyzer {
     private String[] integrationTestPatterns;
     private String[] functionalTestPatterns;
     private String[] excludePatterns;
-    private RegexMatcher regexMatcher = new SimpleRegexMatcher();
 
 
     public JUnitAnalyzer(String integrationTestPatterns, String functionalTestPatterns,
                          String excludePatterns) {
+
         this.functionalTestPatterns = functionalTestPatterns.split(",");
         this.excludePatterns = excludePatterns.split(",");
         this.integrationTestPatterns = integrationTestPatterns.split(",");
@@ -43,9 +43,9 @@ public class JUnitAnalyzer {
     public JUnitAnalyzer(Settings settings, FileSystem system) {
         this.fileSystem = system;
         this.reportPath = settings.getString("lean.testpyramid.junit.report.path");
-        this.excludePatterns = settings.getStringArray("lean.testpyramid.junit.integration.test.patterns");
+        this.excludePatterns = settings.getStringArray("lean.testpyramid.junit.exclude.test.patterns");
         this.integrationTestPatterns = settings.getStringArray("lean.testpyramid.junit.integration.test.patterns");
-        this.functionalTestPatterns = settings.getStringArray("lean.testpyramid.gauge.functional.test.patterns");
+        this.functionalTestPatterns = settings.getStringArray("lean.testpyramid.junit.functional.test.patterns");
 
     }
 
@@ -54,7 +54,9 @@ public class JUnitAnalyzer {
         List<Boolean> bools = with(patterns).convert(new Converter<String, Boolean>() {
             @Override
             public Boolean convert(String pattern) {
-                return regexMatcher.match(str, pattern);
+                Pattern regPattern = Pattern.compile(pattern);
+                Matcher matcher = regPattern.matcher(str);
+                return matcher.matches();
             }
         });
         for (Boolean bool : bools) {
