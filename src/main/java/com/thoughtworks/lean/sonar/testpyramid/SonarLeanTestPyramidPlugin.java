@@ -10,9 +10,9 @@ import java.util.List;
 
 @Properties({
         @Property(key = "lean.testpyramid.junit.report.path", name = "JUnit Report path", defaultValue = "target/surefire-reports/"),
-        @Property(key = "lean.testpyramid.junit.test.exclude.pattern", name = "JUnit Test Exclude path", defaultValue = "target/surefire-reports/"),
-        @Property(key = "lean.testpyramid.junit.integration.test.pattern", name = "JUnit Integration/API TestCase pattern", defaultValue = "^IT**$,^API_**$"),
-        @Property(key = "lean.testpyramid.junit.ui.test.pattern", name = "JUnit Functional/UI TestCase pattern", defaultValue = "^FT**$,^UI_**$"),
+        @Property(key = "lean.testpyramid.junit.test.exclude.patterns", name = "JUnit Test Exclude patterns"),
+        @Property(key = "lean.testpyramid.junit.integration.test.patterns", name = "JUnit Integration/API TestCase patterns", defaultValue = "IT*,API_*"),
+        @Property(key = "lean.testpyramid.junit.functional.test.patterns", name = "JUnit Functional/UI TestCase patterns", defaultValue = "FT*,UI_*"),
         //
         @Property(key = "lean.testpyramid.cucumber.report.path", name = "Cucumber Report path (json)", defaultValue = "target/cucumber.json"),
         @Property(key = "lean.testpyramid.cucumber.integration.test.tags", name = "Cucumber Integration test tags(@)", defaultValue = "@api_test,@integration_test"),
