@@ -34,4 +34,26 @@ public class CucumberAnalyzerTest {
 
 
     }
+
+
+    @Test
+    public void should_return_correct_test_pyramid_2() throws IOException {
+        //ui-test的真实数据
+        // given
+        JXPathMap ctx = new JXPathMap(new ObjectMapper().readValue(getClass().getResourceAsStream("/cucumber_report_2.json"), Object.class));
+        TestsCounter testsCounter=new TestsCounter();
+        CucumberAnalyzer cucumberAnalyzer=new CucumberAnalyzer(Sets.newHashSet("@api_test"),Sets.newHashSet("@ui_test"));
+
+        // when
+
+        cucumberAnalyzer.analyse(ctx,testsCounter);
+        // then
+        assertEquals(0.0,testsCounter.getNumberOfTests(TestType.UNIT_TEST));
+        assertEquals(0.0,testsCounter.getNumberOfTests(TestType.INTEGRATION_TEST));
+        assertEquals(3.0,testsCounter.getNumberOfTests(TestType.FUNCTIONAL_TEST));
+
+
+
+    }
+
 }

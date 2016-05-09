@@ -6,7 +6,11 @@ import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JXPathMap;
 import com.thoughtworks.lean.sonar.testpyramid.util.ScriptUtil;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.io.IOUtils;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
@@ -57,8 +61,10 @@ public class CucumberAnalyzer {
         for (JXPathMap feature : wrapedFeatures) {
             List<Map> tags = feature.get("tags");
             Set<String> tagNames = toTagnames(tags);
-            List scenarios = feature.get("elements");
-            double scenarioCount = scenarios.size();
+            List<Map> scenarios = feature.get("elements");
+            List<String> wrappedScenarios = with(scenarios).convert(JXPathMap.toJxPathFunction).extract(on(JXPathMap.class).getString("type")).retain(Matchers.equalTo("scenario"));
+
+            double scenarioCount = wrappedScenarios.size();
             TestType testType = TestType.UNIT_TEST;
             if (Sets.intersection(tagNames, functionalTestTags).size() > 0) {
                 testType = TestType.FUNCTIONAL_TEST;

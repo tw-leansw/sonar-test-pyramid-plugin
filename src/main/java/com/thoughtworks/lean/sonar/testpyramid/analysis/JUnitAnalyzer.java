@@ -82,6 +82,7 @@ public class JUnitAnalyzer {
     }
 
     public void analyse(TestsCounter testsCounter) {
+        logger.info("start junit test pyramid analyse");
         analyse(testsCounter, fileSystem.resolvePath(reportPath));
     }
 
