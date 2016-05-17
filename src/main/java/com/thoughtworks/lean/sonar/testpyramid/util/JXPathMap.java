@@ -3,7 +3,10 @@ package com.thoughtworks.lean.sonar.testpyramid.util;
 import ch.lambdaj.function.convert.Converter;
 import org.apache.commons.jxpath.JXPathContext;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class JXPathMap {
     JXPathContext jxPathContext;

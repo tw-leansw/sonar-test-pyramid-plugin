@@ -5,18 +5,12 @@ import com.google.common.collect.Sets;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JXPathMap;
-import com.thoughtworks.lean.sonar.testpyramid.util.ScriptUtil;
-import org.apache.commons.collections.MultiMap;
-import org.apache.commons.io.IOUtils;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.config.Settings;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;

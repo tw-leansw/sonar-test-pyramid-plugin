@@ -1,12 +1,9 @@
 package com.thoughtworks.lean.sonar.testpyramid.analysis;
 
 import com.thoughtworks.lean.sonar.testpyramid.SonarTestPyramidMetrics;
-import com.thoughtworks.lean.sonar.testpyramid.model.TestCounter;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import org.sonar.api.measures.Measure;
-
-import java.util.List;
 
 public class TestPyramidAnalysis {
 

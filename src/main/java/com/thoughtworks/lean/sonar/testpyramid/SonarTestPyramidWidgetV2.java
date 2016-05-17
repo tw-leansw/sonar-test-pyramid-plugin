@@ -3,8 +3,6 @@ package com.thoughtworks.lean.sonar.testpyramid;
 import org.sonar.api.web.AbstractRubyTemplate;
 import org.sonar.api.web.RubyRailsWidget;
 
-import java.util.UUID;
-
 public class SonarTestPyramidWidgetV2 extends AbstractRubyTemplate implements RubyRailsWidget {
 
     public String getId() {

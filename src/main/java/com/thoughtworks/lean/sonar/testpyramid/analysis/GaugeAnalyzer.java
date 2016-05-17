@@ -1,7 +1,5 @@
 package com.thoughtworks.lean.sonar.testpyramid.analysis;
 
-import ch.lambdaj.function.convert.Converter;
-import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
@@ -28,6 +26,16 @@ public class GaugeAnalyzer {
     private Set<String> integrationTestTags;
     private Set<String> functionalTestTags;
     FileSystem fileSystem;
+    String haha;
+
+    public FileSystem getFileSystem() {
+        return fileSystem;
+    }
+
+    public GaugeAnalyzer setFileSystem(FileSystem fileSystem) {
+        this.fileSystem = fileSystem;
+        return this;
+    }
 
     public GaugeAnalyzer(Set<String> integrationTestTags, Set<String> functionalTestTags) {
         this.integrationTestTags = integrationTestTags;
