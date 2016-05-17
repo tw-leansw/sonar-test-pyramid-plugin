@@ -26,7 +26,6 @@ public class GaugeAnalyzer {
     private Set<String> integrationTestTags;
     private Set<String> functionalTestTags;
     FileSystem fileSystem;
-    String haha;
 
     public FileSystem getFileSystem() {
         return fileSystem;
