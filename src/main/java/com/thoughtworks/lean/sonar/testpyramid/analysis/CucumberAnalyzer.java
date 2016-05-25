@@ -2,6 +2,7 @@ package com.thoughtworks.lean.sonar.testpyramid.analysis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
+import com.thoughtworks.lean.sonar.testpyramid.Constants;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JXPathMap;
@@ -35,9 +36,9 @@ public class CucumberAnalyzer {
 
     public CucumberAnalyzer(Settings settings, FileSystem fs) {
         this.fileSystem = fs;
-        this.reportPath = settings.getString("lean.testpyramid.cucumber.report.path");
-        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.cucumber.integration.test.tags"));
-        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.cucumber.functional.test.tags"));
+        this.reportPath = settings.getString(Constants.LEAN_TESTPYRAMID_CUCUMBER_REPORT_PATH);
+        this.integrationTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_CUCUMBER_INTEGRATION_TEST_TAGS));
+        this.functionalTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_CUCUMBER_FUNCTIONAL_TEST_TAGS));
 
     }
 

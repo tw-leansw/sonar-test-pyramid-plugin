@@ -18,7 +18,7 @@ public class SonarTestPyramidMetrics implements Metrics {
             .create();
     public final static Metric INTEGRATION_TESTS_METRIC = new Metric.Builder(
             "lean_testpyramid_integrationtests",
-            "Number Of Integration/API Tests",
+            "Number Of Component Tests",
             Metric.ValueType.INT)
             .setDomain(CoreMetrics.DOMAIN_TESTS)
             .setQualitative(true)

@@ -1,6 +1,7 @@
 package com.thoughtworks.lean.sonar.testpyramid.analysis;
 
 import com.google.common.collect.Sets;
+import com.thoughtworks.lean.sonar.testpyramid.Constants;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JXPathMap;
@@ -43,9 +44,9 @@ public class GaugeAnalyzer {
 
     public GaugeAnalyzer(Settings settings, FileSystem fileSystem) {
         this.fileSystem = fileSystem;
-        this.reportPath = settings.getString("lean.testpyramid.gauge.report.path");
-        this.integrationTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.gauge.integration.test.tags"));
-        this.functionalTestTags = Sets.newHashSet(settings.getStringArray("lean.testpyramid.gauge.functional.test.tags"));
+        this.reportPath = settings.getString(Constants.LEAN_TESTPYRAMID_GAUGE_REPORT_PATH);
+        this.integrationTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_GAUGE_INTEGRATION_TEST_TAGS));
+        this.functionalTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_GAUGE_FUNCTIONAL_TEST_TAGS));
     }
 
     public void analyse(TestsCounter testsCounter) {

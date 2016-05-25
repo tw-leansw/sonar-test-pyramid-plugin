@@ -1,6 +1,7 @@
 package com.thoughtworks.lean.sonar.testpyramid.analysis;
 
 import ch.lambdaj.function.convert.Converter;
+import com.thoughtworks.lean.sonar.testpyramid.Constants;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestType;
 import com.thoughtworks.lean.sonar.testpyramid.model.TestsCounter;
 import com.thoughtworks.lean.sonar.testpyramid.util.JUnitUtil;
@@ -26,7 +27,7 @@ public class JUnitAnalyzer {
 
     private String reportPath;
     private FileSystem fileSystem;
-    private String[] integrationTestPatterns;
+    private String[] componentTestPatterns;
     private String[] functionalTestPatterns;
     private String[] excludePatterns;
 
@@ -36,16 +37,16 @@ public class JUnitAnalyzer {
 
         this.functionalTestPatterns = functionalTestPatterns.split(",");
         this.excludePatterns = excludePatterns.split(",");
-        this.integrationTestPatterns = integrationTestPatterns.split(",");
+        this.componentTestPatterns = integrationTestPatterns.split(",");
     }
 
 
     public JUnitAnalyzer(Settings settings, FileSystem system) {
         this.fileSystem = system;
-        this.reportPath = settings.getString("lean.testpyramid.junit.report.path");
-        this.excludePatterns = settings.getStringArray("lean.testpyramid.junit.exclude.test.patterns");
-        this.integrationTestPatterns = settings.getStringArray("lean.testpyramid.junit.integration.test.patterns");
-        this.functionalTestPatterns = settings.getStringArray("lean.testpyramid.junit.functional.test.patterns");
+        this.reportPath = settings.getString(Constants.LEAN_TESTPYRAMID_JUNIT_REPORT_PATH);
+        this.excludePatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_EXCLUDE_TEST_PATTERNS);
+        this.componentTestPatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_COMPONENT_TEST_PATTERNS);
+        this.functionalTestPatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_FUNCTIONAL_TEST_PATTERNS);
 
     }
 
@@ -74,7 +75,7 @@ public class JUnitAnalyzer {
     }
 
     public boolean isIntegrationTest(String testCase) {
-        return checkPatterns(testCase, integrationTestPatterns);
+        return checkPatterns(testCase, componentTestPatterns);
     }
 
     public boolean isFunctionalTest(String testCase) {
