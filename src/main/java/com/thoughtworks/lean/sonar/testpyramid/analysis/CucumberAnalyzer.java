@@ -27,6 +27,7 @@ public class CucumberAnalyzer {
     private Set<String> integrationTestTags;
     private Set<String> functionalTestTags;
     FileSystem fileSystem;
+    private boolean skip = false;
 
 
     public CucumberAnalyzer(Set<String> integrationTestTags, Set<String> functionalTestTags) {
@@ -39,11 +40,16 @@ public class CucumberAnalyzer {
         this.reportPath = settings.getString(Constants.LEAN_TESTPYRAMID_CUCUMBER_REPORT_PATH);
         this.integrationTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_CUCUMBER_INTEGRATION_TEST_TAGS));
         this.functionalTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_CUCUMBER_FUNCTIONAL_TEST_TAGS));
-
+        this.skip = settings.getBoolean(Constants.LEAN_TESTPYRAMID_CUCUMBER_SKIP);
     }
 
     public void analyse(TestsCounter testsCounter) {
+        if (skip) {
+            logger.info("test pyramid cucumber report analysis skipped!");
+            return;
+        }
         try {
+            logger.info("start cucumber test pyramid analyse");
             analyse(new JXPathMap(new ObjectMapper().readValue(fileSystem.resolvePath(reportPath), Object.class)), testsCounter);
         } catch (IOException e) {
             logger.warn("cant read cucumber report! reportPath:" + reportPath);

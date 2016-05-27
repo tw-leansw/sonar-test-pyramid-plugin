@@ -30,6 +30,7 @@ public class JUnitAnalyzer {
     private String[] componentTestPatterns;
     private String[] functionalTestPatterns;
     private String[] excludePatterns;
+    private boolean skip;
 
 
     public JUnitAnalyzer(String integrationTestPatterns, String functionalTestPatterns,
@@ -47,7 +48,7 @@ public class JUnitAnalyzer {
         this.excludePatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_EXCLUDE_TEST_PATTERNS);
         this.componentTestPatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_COMPONENT_TEST_PATTERNS);
         this.functionalTestPatterns = settings.getStringArray(Constants.LEAN_TESTPYRAMID_JUNIT_FUNCTIONAL_TEST_PATTERNS);
-
+        this.skip = settings.getBoolean(Constants.LEAN_TESTPYRAMID_JUNIT_SKIP);
     }
 
 
@@ -83,6 +84,10 @@ public class JUnitAnalyzer {
     }
 
     public void analyse(TestsCounter testsCounter) {
+        if (skip) {
+            logger.info("test pyramid cucumber report analysis skipped!");
+            return;
+        }
         logger.info("start junit test pyramid analyse");
         analyse(testsCounter, fileSystem.resolvePath(reportPath));
     }

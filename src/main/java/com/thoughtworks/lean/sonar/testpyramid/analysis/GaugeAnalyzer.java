@@ -22,11 +22,12 @@ import static ch.lambdaj.collection.LambdaCollections.with;
 
 
 public class GaugeAnalyzer {
-    Logger logger = LoggerFactory.getLogger(getClass());
-    String reportPath;
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    private String reportPath;
     private Set<String> integrationTestTags;
     private Set<String> functionalTestTags;
-    FileSystem fileSystem;
+    private FileSystem fileSystem;
+    private boolean skip = false;
 
     public FileSystem getFileSystem() {
         return fileSystem;
@@ -47,9 +48,14 @@ public class GaugeAnalyzer {
         this.reportPath = settings.getString(Constants.LEAN_TESTPYRAMID_GAUGE_REPORT_PATH);
         this.integrationTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_GAUGE_INTEGRATION_TEST_TAGS));
         this.functionalTestTags = Sets.newHashSet(settings.getStringArray(Constants.LEAN_TESTPYRAMID_GAUGE_FUNCTIONAL_TEST_TAGS));
+        this.skip = settings.getBoolean(Constants.LEAN_TESTPYRAMID_GAUGE_SKIP);
     }
 
     public void analyse(TestsCounter testsCounter) {
+        if (skip) {
+            logger.info("test pyramid gauge  report analysis skipped!");
+            return;
+        }
         try {
             logger.debug("start gauge test pyramid analyse");
             String reportString = IOUtils.toString(new FileInputStream(fileSystem.resolvePath(reportPath + "html-report/js/result.js")));
@@ -58,7 +64,6 @@ public class GaugeAnalyzer {
             logger.warn("cant read gauge report!");
         }
     }
-
 
 
     public void analyse(JXPathMap jxPathMap, TestsCounter testCounter) {
